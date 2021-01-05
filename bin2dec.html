@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin 2 Dec</title>
+    <style>
+       *{
+            box-sizing: border-box;
+       }
+       body{
+           background-color: rgb(169, 182, 194);
+           position: relative;
+       }
+       .binary{
+           font-size: 1.4em;
+           display: inline;
+           font-family: monospace;
+       }
+       .binres{
+           direction: rtl;
+           text-align: center;
+        }
+       #wrap{
+            position: absolute;
+            left: 10%;
+       }
+       #res,p{
+            font-size: 1.1em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       }
+       p{
+        margin: 1em;
+        text-indent: 0.7em;
+        width:80%;
+       }
+       button{
+            font-weight: 700;
+            font-size: 1.5em;
+            font-family: monospace;
+            transition: 0.1s;
+            width: 60%;
+            height:4em;
+            border-radius: 15px;
+            border: 2px solid rgb(26, 141, 145);
+            background-color: #72d1cc;
+            margin-left: 18%;
+       }
+       button:hover{
+        background-color: #9eecd8;
+        border: 2px solid #0a595c;
+       }
+        .noselect{
+            background-image: url(noselect.png);
+        }
+        .selected, .noselect{
+            transition: 0.2s;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100px;
+            border-bottom: 1px solid #383838;
+        }
+        .selected:hover, .noselect:hover{
+            transition: 0.1s;
+            border-bottom: 10px solid #383838;
+        }
+        .selected{
+            background-image: url(selected.png);
+        }
+        #bin{
+            border: 1px solid #333333;
+            border-radius: 10px 25px;
+            background-color: aquamarine;
+            display: inline-block;
+            margin-left: 0.3em;
+            font-family: monospace;
+        }
+        #container{
+            margin: auto;
+            text-align: center;
+            display: grid;
+            grid-template-columns:repeat(8,10%);
+            direction: rtl;
+            margin-right:  20%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <h1>Binary to Decimal</h1>
+        <div id="container">
+            <div id="bin">
+                1
+                <div name="imgs" class="noselect" onclick="change0()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+
+            <div id="bin">
+                2
+                <div name="imgs" class="noselect" onclick="change1()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+            <div id="bin">
+                4
+                <div name="imgs" class="noselect" onclick="change2()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+
+            <div id="bin">
+                8
+                <div name="imgs" class="noselect" onclick="change3()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+
+            <div id="bin">
+                16
+                <div name="imgs" class="noselect" onclick="change4()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+
+            <div id="bin">
+                32
+                <div name="imgs" class="noselect" onclick="change5()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">  
+            </div>
+
+            <div id="bin">
+                64
+                <div name="imgs" class="noselect" onclick="change6()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+
+            <div id="bin">
+                128
+                <div name="imgs" class="noselect" onclick="change7()"></div>
+                <input type="checkbox" name="bin" id="" onclick="activate()">
+            </div>
+        </div>
+        <br>
+        <button onclick="calcDec()">Show Result</button>
+        <br>
+        
+        <div class="binres">
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+            <div class="binary">0</div>
+        </div>
+        <br> <br>
+        Result:
+        <div id="res">0</div>
+
+        <br>
+
+        <h2>What is Binary Code?</h2>
+        <p>  
+            Binary code is a code used in digital computers to represent text, computer processor instructions, or any other data. It is based on a binary number system in which there are only two possible states, off and on, usually symbolized by 0 and 1. Whereas in a decimal system, which employs 10 digits, each digit position represents a power of 10 (100, 1,000, etc.), in a binary system each digit position represents a power of 2 (4, 8, 16, etc.).
+        </p>
+        <p>
+            Even the binary code only representing numbers, we have ways to store letters. Each letter has its number, for example, A is 65 (01000001) and Z is 90 (01011010) and space is 0 (00000000)
+        </p>
+        <h2>How to use this site?</h2>
+        <p>
+            Here we have a byte (unit of digital information that most commonly consists of eight bits), each of the lamps is a bit. Considering the ON lamps are 1s and the OFF ones are 0s, we can go from 00000000 to 11111111, or from 0 to 255, by turning them on or off. The result will be the sum of the turned on bits.
+        </p>
+    </div>
+    <script>
+        var img = document.getElementsByName("imgs");
+        var input = document.getElementsByName("bin");
+        var binaries = document.getElementsByClassName("binary");
+        function calcDec(){
+            var result = 0;
+            for(var i = 0 ; i < 8 ; i++){
+                if(input[i].checked){
+                    var curRes = Math.pow(2,i);
+                    binaries[i].innerText = "1";
+                    result += curRes;
+                }
+                else{
+                    binaries[i].innerText = "0";
+                }
+            }
+            document.getElementById("res").innerText = result;
+        }
+        function activate(){
+            for(var i = 0; i <8 ;i++){
+                if(input[i].checked)
+                    img[i].className = "selected";
+                else
+                    img[i].className = "noselect"; 
+            }      
+        }
+        function change0(){
+            if(img[0].className == "noselect")
+                input[0].checked = true;
+            else
+                input[0].checked = false;
+            activate();
+        }
+        function change1(){
+            if(img[1].className == "noselect")
+                input[1].checked = true;
+            else
+                input[1].checked = false;
+            activate();
+        }
+        function change2(){
+            if(img[2].className == "noselect")
+                input[2].checked = true;
+            else
+                input[2].checked = false;
+            activate();
+        }
+        function change3(){
+            if(img[3].className == "noselect")
+                input[3].checked = true;
+            else
+                input[3].checked = false;
+            activate();
+        }
+        function change4(){
+            if(img[4].className == "noselect")
+                input[4].checked = true;
+            else
+                input[4].checked = false;
+            activate();
+        }
+        function change5(){
+            if(img[5].className == "noselect")
+                input[5].checked = true;
+            else
+                input[5].checked = false;
+            activate();
+        }
+        function change6(){
+            if(img[6].className == "noselect")
+                input[6].checked = true;
+            else
+                input[6].checked = false;
+            activate();
+        }
+        function change7(){
+            if(img[7].className == "noselect")
+                input[7].checked = true;
+            else
+                input[7].checked = false;
+            activate();
+        }
+    </script>
+</body>
+</html>
